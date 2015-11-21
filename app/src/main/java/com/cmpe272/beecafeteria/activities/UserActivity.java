@@ -1,26 +1,30 @@
 package com.cmpe272.beecafeteria.activities;
 
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.widget.DrawerLayout;
 
 import com.cmpe272.beecafeteria.R;
+import com.cmpe272.beecafeteria.fragments.DealsFragment;
+import com.cmpe272.beecafeteria.fragments.NavigationDrawerFragment;
+import com.cmpe272.beecafeteria.fragments.OrderDetailFragment;
 import com.cmpe272.beecafeteria.fragments.OrdersFragment;
 import com.cmpe272.beecafeteria.fragments.OutletsFragment;
-import com.cmpe272.beecafeteria.fragments.NavigationDrawerFragment;
-import com.cmpe272.beecafeteria.fragments.DealsFragment;
+import com.cmpe272.beecafeteria.modelResponse.Order;
 import com.cmpe272.beecafeteria.others.SessionManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class UserActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, OrdersFragment.OrderFragmentCallbacks {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -44,8 +48,6 @@ public class UserActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -61,16 +63,21 @@ public class UserActivity extends AppCompatActivity
         // update the main content by replacing fragments
         switch (position) {
             case 0:
-                setFragment(OutletsFragment.newInstance("Outlets"));
+                setFragment(OutletsFragment.newInstance("Outlets"), false);
                 break;
             case 1:
-                setFragment(DealsFragment.newInstance("Daily Deals"));
+                setFragment(DealsFragment.newInstance("Daily Deals"), false);
                 break;
             case 2:
-                setFragment(OrdersFragment.newInstance("My Orders"));
+                setFragment(OrdersFragment.newInstance("My Orders"), false);
                 break;
         }
         onSectionAttached(position);
+    }
+
+    @Override
+    public void onOrderSelected(Order order) {
+        setFragment(OrderDetailFragment.newInstance(order), true);
     }
 
     public void onSectionAttached(int number) {
@@ -115,7 +122,7 @@ public class UserActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        switch(id){
+        switch (id) {
             case R.id.action_logout:
                 SessionManager.logoutUser(UserActivity.this);
                 return true;
@@ -124,12 +131,18 @@ public class UserActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void setFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment)
+    public void setFragment(Fragment fragment, boolean isAdd) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (isAdd) {
+            fragmentTransaction.addToBackStack(null).setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);;
+        }
+        fragmentTransaction.replace(R.id.container, fragment)
                 .commit();
     }
-
 
 
 }

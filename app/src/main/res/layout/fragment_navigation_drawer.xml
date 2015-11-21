@@ -25,7 +25,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nav_header_container"
-        android:layout_marginTop="15dp" />
+        android:layout_above="@+id/SplitLine_hor1"
+        android:layout_marginTop="8dp" />
 
+    <View
+        android:id="@+id/SplitLine_hor1"
+        android:layout_width="match_parent"
+        android:layout_height= "1dp"
 
+        android:layout_above="@+id/btn_logout"
+        android:background="@android:color/darker_gray" />
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_logout"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingBottom="10dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="Logout"/>
 </RelativeLayout>

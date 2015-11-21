@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/recyclerview_margin"
+    android:paddingLeft="@dimen/recyclerview_margin"
+    android:paddingRight="@dimen/recyclerview_margin"
+    android:paddingTop="@dimen/recyclerview_margin"
+    android:clickable="true">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:layout_toLeftOf="@+id/rating"
+        android:paddingEnd="8dp"
+        android:paddingBottom="10dp"
+        android:text="Kikgj"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <io.techery.properratingbar.ProperRatingBar
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight = "true"
+        android:padding="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:prb_defaultRating="4"
+        app:prb_symbolicTick="$"
+        app:prb_symbolicTickNormalColor="@android:color/darker_gray"
+        app:prb_symbolicTickSelectedColor="@android:color/holo_green_dark"
+        app:prb_totalTicks="5"
+        />
+</RelativeLayout>

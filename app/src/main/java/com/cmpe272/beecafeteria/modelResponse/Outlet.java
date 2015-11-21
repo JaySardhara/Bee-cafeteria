@@ -1,4 +1,4 @@
-package com.cmpe272.beecafeteria.modelApp;
+package com.cmpe272.beecafeteria.modelResponse;
 
 /**
  * Created by Rushil on 11/20/2015.
@@ -15,5 +15,13 @@ public class Outlet {
 
     public int getExpenseRating() {
         return expenseRating;
+    }
+
+    public void setOutletName(String outletName) {
+        this.outletName = outletName;
+    }
+
+    public void setExpenseRating(int expenseRating) {
+        this.expenseRating = expenseRating;
     }
 }

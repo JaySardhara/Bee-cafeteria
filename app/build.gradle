@@ -36,10 +36,11 @@ android {
 repositories {
     jcenter()
     maven { url "https://jitpack.io" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:support-v4:22.0.2'
     compile 'com.parse:parse-android:1.11.0'
@@ -53,6 +54,7 @@ dependencies {
     compile 'com.android.support:support-annotations:23.1.1'
     compile 'org.parceler:parceler:0.2.13'
     compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'org.lucasr.twowayview:twowayview:0.1.4'
+    compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
+    compile 'org.lucasr.twowayview:layouts:1.0.0-SNAPSHOT@aar'
     compile 'com.github.techery:ProperRatingBar:527d37188c'
 }

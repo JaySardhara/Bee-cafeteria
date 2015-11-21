@@ -1,17 +1,17 @@
 package com.cmpe272.beecafeteria.fragments;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,16 +24,19 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.cmpe272.beecafeteria.R;
 import com.cmpe272.beecafeteria.adapter.NavigationDrawerAdapter;
 import com.cmpe272.beecafeteria.modelApp.NavDrawerItem;
+import com.cmpe272.beecafeteria.others.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -48,6 +51,14 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Bind(R.id.navigation_list)
     RecyclerView mDrawerListView;
+
+    @Bind(R.id.btn_logout)
+    TextView btnLogout;
+
+    @OnClick(R.id.btn_logout)
+    void onBtnLogout(){
+        SessionManager.logoutUser(activity);
+    }
     /**
      * Remember the position of the selected item.
      */
@@ -154,9 +165,9 @@ public class NavigationDrawerFragment extends Fragment {
             }
         }));
 
-
         return view;
     }
+
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
