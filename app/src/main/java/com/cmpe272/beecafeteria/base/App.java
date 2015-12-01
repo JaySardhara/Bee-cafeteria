@@ -3,6 +3,7 @@ package com.cmpe272.beecafeteria.base;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -72,6 +73,10 @@ public class App extends Application
     public static void addRequest(@NonNull final Request<?> request, @NonNull final String tag)
     {
         request.setTag(tag);
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         addRequest(request);
     }
 

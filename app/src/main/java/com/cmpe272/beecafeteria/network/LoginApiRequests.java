@@ -91,7 +91,7 @@ public class LoginApiRequests {
         final String url = BuildConfig.apiDomainName + "/login";
 
         final JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("uname", params[0]);
+        jsonObject.addProperty("email", params[0]);
         jsonObject.addProperty("pass", params[1]);
 
         /*final JsonArray squareGuys = new JsonArray();

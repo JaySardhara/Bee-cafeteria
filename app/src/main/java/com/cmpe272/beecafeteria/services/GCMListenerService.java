@@ -11,13 +11,13 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.cmpe272.beecafeteria.R;
-import com.cmpe272.beecafeteria.activities.NotificationActivity;
+import com.cmpe272.beecafeteria.activities.UserActivity;
 import com.google.android.gms.gcm.GcmListenerService;
 
 /**
  * Created by Rushil on 11/13/2015.
  */
-public class GCMListnerService extends GcmListenerService {
+public class GCMListenerService extends GcmListenerService {
 
     String TAG = getClass().getName();
     int countNotification = 0;
@@ -32,7 +32,7 @@ public class GCMListnerService extends GcmListenerService {
     }
 
     public void notifyUser(Context context,String data){
-        Intent intent = new Intent(context, NotificationActivity.class);
+        Intent intent = new Intent(context, UserActivity.class);
         intent.putExtra("data", data);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

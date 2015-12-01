@@ -1,10 +1,13 @@
 package com.cmpe272.beecafeteria.others;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.cmpe272.beecafeteria.activities.LoginActivity;
+import com.cmpe272.beecafeteria.services.GCMRegistrationIntentService;
+import com.cmpe272.beecafeteria.services.GCMUnregistrationIntentService;
 
 import java.util.HashMap;
 
@@ -32,9 +35,11 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public static void createLoginSession(Context context, String email){
+    public static void createLoginSession(Activity activity, String email){
 
-        SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE).edit();
+        registerGCMForUser(activity);
+
+        SharedPreferences.Editor editor = activity.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE).edit();
 
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
@@ -88,15 +93,18 @@ public class SessionManager {
     /**
      * Clear session details
      * */
-    public static void logoutUser(Context context){
+    public static void logoutUser(Activity activity){
 
-        SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE).edit();
+        unregisterGCMForUser(activity);
+
+        SharedPreferences.Editor editor = activity.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE).edit();
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();
 
+
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(context, LoginActivity.class);
+        Intent i = new Intent(activity, LoginActivity.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -104,7 +112,7 @@ public class SessionManager {
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         // Staring Login Activity
-        context.startActivity(i);
+        activity.startActivity(i);
     }
 
     /**
@@ -113,5 +121,23 @@ public class SessionManager {
     // Get Login State
     public static boolean isLoggedIn(Context context){
         return context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE).getBoolean(IS_LOGIN, false);
+    }
+
+    public static void registerGCMForUser(Activity activity){
+
+        if (Utils.checkPlayServices(activity)) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(activity, GCMRegistrationIntentService.class);
+            activity.startService(intent);
+        }
+    }
+
+    public static void unregisterGCMForUser(Activity activity){
+
+        if (Utils.checkPlayServices(activity)) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(activity, GCMUnregistrationIntentService.class);
+            activity.startService(intent);
+        }
     }
 }

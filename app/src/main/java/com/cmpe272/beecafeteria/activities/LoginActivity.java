@@ -73,6 +73,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
+
+
+
     }
 
     public void login() {
@@ -105,8 +108,8 @@ public class LoginActivity extends AppCompatActivity {
                                             //mContent.setVisibility(View.VISIBLE);
                                             ///setData(dummyObject);
                                             _loginButton.setEnabled(true);
-                                            progressDialog.dismiss();
                                             SessionManager.createLoginSession(LoginActivity.this,strUsername);
+                                            progressDialog.dismiss();
                                             onLoginSuccess();
                                         }
                                     }
@@ -188,4 +191,5 @@ public class LoginActivity extends AppCompatActivity {
         //Remove all network call from stack
         App.cancelAllRequests(TAG);
     }
+
 }

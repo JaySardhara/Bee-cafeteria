@@ -94,7 +94,7 @@ public class OrderDetailFragment extends Fragment {
             txtDescription.setText(orderDetails.getOrderDescription());
             txtDate.setText(orderDetails.getOrderDate());
             txtStatus.setText(orderDetails.getStatus());
-            txtOutlet.setText("$ "+orderDetails.getTotal());
+            txtTotal.setText("$ "+orderDetails.getTotal());
         }
 
         return view;

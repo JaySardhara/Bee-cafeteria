@@ -1,5 +1,6 @@
 package com.cmpe272.beecafeteria.others;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -8,6 +9,9 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -22,6 +26,10 @@ public class Utils {
     public static final String PARSE_APPLICATION_ID = "kTh0L8WA9uao2KY1Nhyh0113VWVxYwchqBQg2I3O";
     public static final String PARSE_CLIENT_KEY = "8bbnPHnSroVP9ypO9ttkLpnNCw7hL8mPoVNQnnRa";
     public static final int NOTIFICATION_ID = 100;
+
+    public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
+    public static final String REGISTRATION_COMPLETE = "registrationComplete";
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
 
     public static boolean isConnected(Context context,CoordinatorLayout coordinatorLayout) {
@@ -73,6 +81,27 @@ public class Utils {
         snackbar.setActionTextColor(Color.RED);
 
         snackbar.show();
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    public static boolean checkPlayServices(Activity activity) {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(activity);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(activity, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i(activity.getTitle().toString(), "This device is not supported.");
+                activity.finish();
+            }
+            return false;
+        }
+        return true;
     }
 
 }

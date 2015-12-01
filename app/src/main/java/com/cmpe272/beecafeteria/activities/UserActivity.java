@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 public class UserActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, OrdersFragment.OrderFragmentCallbacks {
 
+    private static final String TAG = "UserActivity";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -56,7 +57,10 @@ public class UserActivity extends AppCompatActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+
     }
+
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -133,6 +137,7 @@ public class UserActivity extends AppCompatActivity
 
     public void setFragment(Fragment fragment, boolean isAdd) {
 
+        //TODO: Unhandled for generic fragment only pop one fragment. have to handle it generic.
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
@@ -143,6 +148,7 @@ public class UserActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.container, fragment)
                 .commit();
     }
+
 
 
 }
